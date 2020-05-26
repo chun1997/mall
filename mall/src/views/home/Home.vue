@@ -115,7 +115,7 @@ export default {
       this.scroll = scrollTop;
       if (scrollHeight - scrollTop - clientHeight <= distance) {
         this.getHomeGoods(this.currentType);
-        console.log("---------");
+        // console.log("---------");
       }
     }
   }
@@ -135,6 +135,6 @@ export default {
 .tab-control {
   position: sticky;
   top: 44px;
-  z-index: 9;
+  z-index: 1;
 }
 </style>

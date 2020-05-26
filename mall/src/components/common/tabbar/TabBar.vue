@@ -22,7 +22,7 @@ export default {
   background-color: #f6f6f6;
   position: fixed;
   bottom: 0;
-
+  z-index: 9;
   box-shadow: 0 -1px rgba(100, 100, 100, 0.1);
 }
 </style>
