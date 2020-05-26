@@ -7,7 +7,7 @@ module.exports = {
                 'views': '@/views',
                 'components': '@/components',
                 // 'content': 'components/content',
-                // 'common': 'components/common',
+                'common': '@/common',
 
             }
         }

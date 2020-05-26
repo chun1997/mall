@@ -15,16 +15,18 @@
       <TabControl class="tab-control" :title="title" @tabClick="tabClick"></TabControl>
       <!-- 商品展示 -->
       <GoodsList :goods="goods[currentType].list" class="goodsList"></GoodsList>
+      <!-- 回到顶部 -->
+      <BackTop></BackTop>
     </div>
   </keep-alive>
 </template>
 
 <script>
 import { getHomeData, getHomeGoods } from "network/home";
-
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabcontrol/TabControl";
 import GoodsList from "components/content/goods/GoodsList";
+import BackTop from "components/common/backtop/BackTop";
 
 import HomeSwiper from "./HomeSwiper";
 import Recommend from "./Recommend";
@@ -36,6 +38,7 @@ export default {
     NavBar,
     TabControl,
     GoodsList,
+    BackTop,
     HomeSwiper,
     Recommend,
     Fashion
@@ -64,7 +67,7 @@ export default {
   destroyed() {},
   activated() {
     window.addEventListener("scroll", this.loadMore);
-    window.scrollTo(0, this.$store.state.scroll);
+    window.scrollTo(0, this.scroll);
   },
   deactivated() {
     window.removeEventListener("scroll", this.loadMore);
@@ -109,27 +112,11 @@ export default {
       let scrollTop = document.documentElement.scrollTop; //滚动距离
 
       let distance = 2; //距离视窗还用2的时候，开始触发；
-      // console.log(clientHeight + " " + scrollHeight + " " + scrollTop);
+      this.scroll = scrollTop;
       if (scrollHeight - scrollTop - clientHeight <= distance) {
         this.getHomeGoods(this.currentType);
+        console.log("---------");
       }
-
-      this.$store.commit("position", scrollTop);
-    },
-
-    // 跳转后不回到顶部
-    scrollBack() {
-      window.scrollTo(0, -this.scroll);
-    },
-    // 防抖
-    debounce(func, delay) {
-      let timer = null;
-      return function(...args) {
-        if (timer) clearTimeout(timer);
-        timer = setTimeout(() => {
-          func.apply(this, args);
-        }, delay);
-      };
     }
   }
 };
